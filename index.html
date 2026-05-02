@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virtual Lab – Jominy Test Apparatus | R. C. Patel Institute of Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --steel: #1c2b3a;
+  --steel-mid: #243446;
+  --steel-light: #2e4460;
+  --fire: #e05a1a;
+  --fire-light: #f57c3a;
+  --fire-pale: #fff3ec;
+  --water: #1a6fa8;
+  --water-light: #3a9fd4;
+  --water-pale: #e8f5fc;
+  --cream: #f5f2ed;
+  --white: #ffffff;
+  --text: #1a2030;
+  --text-muted: #556070;
+  --text-light: #8898aa;
+  --border: rgba(28,43,58,0.12);
+  --border-fire: rgba(224,90,26,0.3);
+  --shadow: 0 3px 20px rgba(28,43,58,0.10);
+  --shadow-deep: 0 8px 40px rgba(28,43,58,0.18);
+  --radius: 10px;
+  --radius-lg: 18px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Rajdhani', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; font-size: 16px; }
+
+/* ── HEADER ── */
+.site-header { background: var(--steel); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.35); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 62px; }
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-logo { width: 38px; height: 38px; background: var(--fire); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 13px; color: white; letter-spacing: 0.05em; }
+.header-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 15px; color: #fff; line-height: 1.2; letter-spacing: 0.02em; }
+.header-subtitle { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 400; }
+.header-badge { background: rgba(224,90,26,0.18); border: 1px solid rgba(224,90,26,0.4); color: #f08050; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.06em; }
+
+/* ── HERO ── */
+.hero { background: var(--steel); padding: 3.5rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(224,90,26,0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(26,111,168,0.1) 0%, transparent 50%); pointer-events: none; }
+.hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; color: var(--fire-light); text-transform: uppercase; margin-bottom: 0.85rem; }
+.hero h1 { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 0.65rem; }
+.hero-sub { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 400; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+.hero-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 7px; }
+.hero-tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.65); font-size: 11.5px; padding: 5px 13px; border-radius: 20px; font-weight: 500; letter-spacing: 0.04em; }
+
+/* ── NAV TABS ── */
+.nav-tabs-wrapper { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 62px; z-index: 90; box-shadow: 0 2px 10px rgba(28,43,58,0.07); }
+.nav-tabs { display: flex; max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; overflow-x: auto; scrollbar-width: none; }
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab { display: flex; align-items: center; gap: 7px; padding: 0 18px; height: 50px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.03em; }
+.nav-tab:hover { color: var(--steel); background: rgba(28,43,58,0.03); }
+.nav-tab.active { color: var(--steel); border-bottom-color: var(--fire); font-weight: 700; }
+.tab-num { width: 18px; height: 18px; border-radius: 50%; background: var(--border); font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.2s; }
+.nav-tab.active .tab-num { background: var(--fire); color: white; }
+
+/* ── MAIN ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.section-header { display: flex; align-items: flex-start; gap: 1.25rem; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
+.section-icon-box { width: 52px; height: 52px; border-radius: 12px; background: var(--steel); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.section-header h2 { font-family: 'Libre Baskerville', serif; font-size: 1.75rem; font-weight: 700; color: var(--steel); line-height: 1.2; margin-bottom: 3px; }
+.section-header p { font-size: 14px; color: var(--text-muted); }
+
+/* ── CARDS ── */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.65rem; margin-bottom: 1.4rem; box-shadow: var(--shadow); }
+.card-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--steel); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 8px; letter-spacing: 0.03em; text-transform: uppercase; }
+.card p, .card li { font-size: 15px; line-height: 1.75; color: #2c3450; }
+.card ul, .card ol { padding-left: 1.4rem; }
+.card li { margin-bottom: 0.4rem; }
+.card ol li { list-style: decimal; }
+.card ul li { list-style: disc; }
+.info-box { background: var(--water-pale); border: 1px solid rgba(26,111,168,0.25); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 14px; color: #0d4a72; line-height: 1.65; margin-bottom: 1.25rem; }
+.fire-box { background: var(--fire-pale); border: 1px solid var(--border-fire); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 14px; color: #7a2800; line-height: 1.65; margin-top: 1rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+@media (max-width: 720px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+.sub-task { background: #f3f5fa; border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 0.6rem; font-size: 14px; color: var(--text); border-left: 3px solid var(--steel-light); }
+.sub-task strong { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; }
+
+/* ── STEP LIST ── */
+.step-list { list-style: none; padding: 0; }
+.step-item { display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+.step-item:last-child { border-bottom: none; }
+.step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--steel); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-family: 'IBM Plex Mono', monospace; }
+.step-content strong { display: block; font-size: 14.5px; font-weight: 700; color: var(--steel); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.02em; }
+.step-content p { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+/* ── SIMULATION ── */
+.sim-wrapper { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-deep); }
+.sim-top { background: var(--steel); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.sim-top-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: 0.05em; text-transform: uppercase; }
+.sim-top-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+.sim-status { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--fire-light); font-weight: 600; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #888; transition: all 0.3s; }
+.status-dot.on { background: #4cde8a; box-shadow: 0 0 6px #4cde8a; }
+.status-dot.hot { background: var(--fire); box-shadow: 0 0 8px var(--fire); }
+.status-dot.quench { background: var(--water-light); box-shadow: 0 0 8px var(--water-light); }
+.sim-body { display: grid; grid-template-columns: 230px 1fr; min-height: 530px; }
+.sim-controls { background: #f0f2f6; border-right: 1px solid var(--border); padding: 1.25rem; }
+.control-group { margin-bottom: 1.4rem; }
+.control-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.55rem; display: block; }
+.control-btn { display: block; width: 100%; text-align: left; padding: 8px 12px; background: transparent; border: 1px solid var(--border); border-radius: 7px; font-size: 12.5px; font-weight: 600; color: var(--text); cursor: pointer; margin-bottom: 5px; transition: all 0.15s; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.03em; }
+.control-btn:hover { background: var(--white); border-color: var(--steel-light); }
+.control-btn.active { background: var(--steel); color: #fff; border-color: var(--steel); }
+.control-btn.fire-btn.active { background: var(--fire); border-color: var(--fire); }
+.control-btn.water-btn.active { background: var(--water); border-color: var(--water); }
+.slider-row { margin-bottom: 0.7rem; }
+.slider-row label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; }
+.slider-row label span { font-weight: 700; color: var(--steel); font-family: 'IBM Plex Mono', monospace; }
+input[type=range] { width: 100%; accent-color: var(--fire); height: 4px; }
+
+/* Simulation canvas area */
+.sim-view { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 1.5rem 2rem; background: #0f1820; position: relative; overflow: hidden; }
+.sim-view-bg { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.02) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.02) 40px); }
+.furnace-area { display: flex; gap: 2rem; align-items: flex-start; position: relative; z-index: 1; width: 100%; }
+.furnace-box { background: #1a1005; border: 2px solid #8b4513; border-radius: 12px; padding: 1rem; width: 130px; text-align: center; flex-shrink: 0; }
+.furnace-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 0.75rem; }
+.furnace-visual { width: 80px; height: 80px; margin: 0 auto; border-radius: 8px; background: #1a0800; border: 2px solid #6b3410; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: all 0.5s; }
+.furnace-flame { font-size: 28px; transition: all 0.5s; }
+.furnace-temp { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #f08040; margin-top: 0.5rem; }
+.furnace-temp span { font-size: 10px; color: rgba(255,255,255,0.3); }
+
+.specimen-journey { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+.journey-step { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.75rem 1rem; transition: all 0.4s; }
+.journey-step.active-step { background: rgba(224,90,26,0.12); border-color: rgba(224,90,26,0.35); }
+.journey-step.done-step { background: rgba(26,111,168,0.1); border-color: rgba(26,111,168,0.3); }
+.step-icon { font-size: 20px; width: 32px; text-align: center; }
+.step-desc { flex: 1; }
+.step-desc strong { display: block; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.8); letter-spacing: 0.05em; text-transform: uppercase; }
+.step-desc span { font-size: 11px; color: rgba(255,255,255,0.35); }
+.step-check { font-size: 14px; color: rgba(255,255,255,0.15); transition: all 0.3s; }
+.step-check.done { color: #4cde8a; }
+
+/* Hardness chart */
+.chart-area { position: relative; z-index: 1; width: 100%; margin-top: 1.25rem; }
+.chart-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); text-transform: uppercase; margin-bottom: 0.6rem; }
+#jominyCanvas { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; display: block; width: 100%; }
+.chart-legend { display: flex; gap: 1.5rem; margin-top: 0.6rem; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.45); }
+.legend-dot { width: 10px; height: 3px; border-radius: 2px; }
+
+.sim-steps-bar { background: #f7f8fc; border-top: 1px solid var(--border); padding: 0.8rem 1.5rem; display: flex; align-items: center; gap: 1rem; font-size: 13px; color: var(--text-muted); }
+.sim-step-tag { background: var(--steel); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 9px; border-radius: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+.btn { padding: 7px 18px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+.btn-outline { background: transparent; border-color: var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--steel); color: var(--steel); }
+.btn-primary { background: var(--steel); color: #fff; border-color: var(--steel); }
+.btn-primary:hover { background: var(--steel-mid); }
+.btn-fire { background: var(--fire); color: #fff; border-color: var(--fire); }
+.btn-fire:hover { background: var(--fire-light); }
+.sim-btn { margin-left: auto; display: flex; gap: 8px; }
+
+/* ── SELF EVAL ── */
+.eval-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+.eval-q { font-size: 15px; font-weight: 700; color: var(--steel); margin-bottom: 0.85rem; line-height: 1.45; }
+.eval-options { display: flex; flex-direction: column; gap: 7px; }
+.eval-option { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--text); transition: all 0.15s; background: #fafbfd; user-select: none; font-weight: 500; }
+.eval-option:hover { border-color: var(--steel-light); background: var(--white); }
+.eval-option.correct { border-color: #1b6b3a; background: #e6f4ec; color: #1b6b3a; font-weight: 700; }
+.eval-option.wrong { border-color: #c0392b; background: #fdeaea; color: #8b1a1a; }
+.eval-option.disabled { pointer-events: none; }
+.eval-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0; background: white; transition: all 0.15s; }
+.eval-option.correct .eval-radio { border-color: #1b6b3a; background: #1b6b3a; }
+.eval-option.wrong .eval-radio { border-color: #c0392b; background: #c0392b; }
+.eval-feedback { margin-top: 0.7rem; font-size: 13px; padding: 7px 12px; border-radius: 7px; display: none; font-weight: 600; }
+.eval-feedback.show { display: block; }
+.eval-feedback.ok { background: #e6f4ec; color: #1b6b3a; }
+.eval-feedback.fail { background: #fdeaea; color: #8b1a1a; }
+.eval-score-box { background: var(--steel); border-radius: var(--radius-lg); padding: 2rem; text-align: center; color: #fff; margin-top: 1.5rem; display: none; }
+.eval-score-box.show { display: block; }
+.score-num { font-family: 'IBM Plex Mono', monospace; font-size: 3.5rem; font-weight: 500; color: var(--fire-light); }
+.score-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 0.25rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.score-msg { margin-top: 0.6rem; font-size: 15px; color: rgba(255,255,255,0.85); font-weight: 500; }
+
+/* ── ASSIGNMENT ── */
+.assignment-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
+.assignment-header { background: var(--steel); padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.assignment-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; letter-spacing: 0.04em; text-transform: uppercase; }
+.badge { font-size: 10.5px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.06em; text-transform: uppercase; }
+.badge-fire { background: rgba(224,90,26,0.25); color: #f08050; border: 1px solid rgba(224,90,26,0.4); }
+.badge-water { background: rgba(26,111,168,0.2); color: #5aabe0; border: 1px solid rgba(26,111,168,0.35); }
+.assignment-body { padding: 1.25rem 1.5rem; }
+.assignment-body p { font-size: 14.5px; line-height: 1.7; color: var(--text); margin-bottom: 0.85rem; }
+
+/* ── QUIZ ── */
+.quiz-header-card { background: linear-gradient(135deg, var(--steel) 0%, var(--steel-mid) 100%); border-radius: var(--radius-lg); padding: 2rem; color: #fff; margin-bottom: 2rem; display: flex; align-items: center; gap: 1.5rem; }
+.quiz-icon-big { width: 64px; height: 64px; background: rgba(224,90,26,0.18); border: 2px solid rgba(224,90,26,0.4); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.quiz-meta { display: flex; gap: 1.5rem; margin-top: 0.65rem; flex-wrap: wrap; }
+.quiz-meta-item { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 500; }
+.quiz-meta-item strong { display: block; font-size: 15px; font-weight: 700; color: #fff; }
+.quiz-q-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.2rem; box-shadow: var(--shadow); }
+.quiz-q-num-bar { background: #f3f5fa; border-bottom: 1px solid var(--border); padding: 0.55rem 1.25rem; font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+.quiz-q-body { padding: 1.25rem 1.5rem; }
+.quiz-q-text { font-size: 15.5px; font-weight: 700; color: var(--steel); margin-bottom: 1.1rem; line-height: 1.5; }
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option { display: flex; align-items: center; gap: 10px; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; font-size: 14px; color: var(--text); transition: all 0.15s; background: #fafbfd; user-select: none; font-weight: 500; }
+.quiz-option:hover { border-color: var(--steel-light); background: var(--white); }
+.quiz-option.selected { border-color: var(--steel); background: rgba(28,43,58,0.04); font-weight: 600; }
+.quiz-option.correct { border-color: #1b6b3a; background: #e6f4ec; color: #1b6b3a; font-weight: 700; }
+.quiz-option.wrong { border-color: #c0392b; background: #fdeaea; color: #8b1a1a; }
+.quiz-option.disabled { pointer-events: none; }
+.option-letter { width: 26px; height: 26px; border-radius: 50%; background: rgba(28,43,58,0.08); color: var(--steel); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-family: 'IBM Plex Mono', monospace; }
+.quiz-option.selected .option-letter { background: var(--steel); color: #fff; }
+.quiz-option.correct .option-letter { background: #1b6b3a; color: #fff; }
+.quiz-option.wrong .option-letter { background: #c0392b; color: #fff; }
+.quiz-result-card { background: var(--steel); border-radius: var(--radius-lg); padding: 2.5rem; text-align: center; color: #fff; margin-top: 2rem; display: none; }
+.quiz-result-card.show { display: block; }
+.quiz-score-big { font-family: 'IBM Plex Mono', monospace; font-size: 4rem; font-weight: 500; color: var(--fire-light); line-height: 1; }
+.quiz-score-denom { font-size: 1.5rem; color: rgba(255,255,255,0.35); }
+.quiz-result-label { font-size: 20px; font-weight: 700; margin: 0.75rem 0 0.25rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.quiz-result-sub { font-size: 14px; color: rgba(255,255,255,0.55); }
+.quiz-grade-bar { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+.quiz-grade-item { background: rgba(255,255,255,0.07); border-radius: 10px; padding: 0.75rem 1.25rem; font-size: 12px; color: rgba(255,255,255,0.6); font-weight: 600; }
+.quiz-grade-item strong { display: block; font-size: 1.25rem; font-weight: 700; color: #fff; }
+.quiz-submit-bar { display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; }
+
+footer { background: var(--steel); color: rgba(255,255,255,0.4); text-align: center; padding: 1.75rem; font-size: 13px; margin-top: 3rem; font-weight: 500; letter-spacing: 0.04em; }
+footer strong { color: rgba(255,255,255,0.75); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">RC</div>
+      <div>
+        <div class="header-title">R. C. Patel Institute of Technology</div>
+        <div class="header-subtitle">Department of Mechanical Engineering · Virtual Lab</div>
+      </div>
+    </div>
+    <div class="header-badge">Material Testing Lab</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-eyebrow">Virtual Laboratory — Hardenability Testing</div>
+  <h1>Jominy <br>Test Apparatus</h1>
+  <p class="hero-sub">Determine the hardenability of steel through interactive end-quench simulation</p>
+  <div class="hero-tags">
+    <span class="hero-tag">Hardenability</span>
+    <span class="hero-tag">Quenching</span>
+    <span class="hero-tag">Rockwell Hardness</span>
+    <span class="hero-tag">Steel Heat Treatment</span>
+    <span class="hero-tag">ME Lab</span>
+  </div>
+</section>
+
+<!-- Nav Tabs -->
+<div class="nav-tabs-wrapper">
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="switchTab('aim',this)">🎯 Aim <span class="tab-num">1</span></button>
+    <button class="nav-tab" onclick="switchTab('theory',this)">📖 Theory <span class="tab-num">2</span></button>
+    <button class="nav-tab" onclick="switchTab('procedure',this)">📋 Procedure <span class="tab-num">3</span></button>
+    <button class="nav-tab" onclick="switchTab('simulation',this)">🔥 Simulation <span class="tab-num">4</span></button>
+    <button class="nav-tab" onclick="switchTab('selfeval',this)">✅ Self Evaluation <span class="tab-num">5</span></button>
+    <button class="nav-tab" onclick="switchTab('assignment',this)">📝 Assignment <span class="tab-num">6</span></button>
+    <button class="nav-tab" onclick="switchTab('quiz',this)">🏆 Quiz <span class="tab-num">7</span></button>
+  </nav>
+</div>
+
+<main class="main">
+
+<!-- AIM -->
+<section id="aim" class="section active">
+  <div class="section-header">
+    <div class="section-icon-box">🎯</div>
+    <div><h2>Aim</h2><p>Objective and purpose of the Jominy End-Quench Test experiment</p></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔥 Primary Objective</div>
+    <p>To study and determine the <strong>hardenability</strong> of steel using the <strong>Jominy End-Quench Test</strong>, and to plot the hardenability curve (Jominy curve) showing the variation of hardness with distance from the quenched end of the specimen.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">📌 Learning Outcomes</div>
+      <ul>
+        <li>Understand the concept of hardenability vs. hardness</li>
+        <li>Set up and operate the Jominy test apparatus correctly</li>
+        <li>Prepare a standard Jominy specimen (25.4 mm dia × 102 mm)</li>
+        <li>Austenitize the specimen at the correct temperature</li>
+        <li>Quench the specimen using the prescribed water jet</li>
+        <li>Measure Rockwell hardness at set distances from quenched end</li>
+        <li>Plot the hardenability curve and interpret results</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">⚙️ Scope of Study</div>
+      <ul>
+        <li>Significance of hardenability in steel selection</li>
+        <li>Role of alloying elements on hardenability</li>
+        <li>Effect of cooling rate along the Jominy bar</li>
+        <li>Comparison of hardenability of different steel grades</li>
+        <li>Relationship between distance from quench end and hardness</li>
+        <li>Microstructural transformations during quenching</li>
+      </ul>
+    </div>
+  </div>
+  <div class="info-box">
+    <strong>Lab:</strong> Material Testing &nbsp;·&nbsp;
+    <strong>Equipment:</strong> Jominy End-Quench Test Apparatus &nbsp;·&nbsp;
+    <strong>Specimen:</strong> ⌀25.4 mm × 102 mm cylindrical bar &nbsp;·&nbsp;
+    <strong>Department:</strong> Mechanical Engineering
+  </div>
+</section>
+
+<!-- THEORY -->
+<section id="theory" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">📖</div>
+    <div><h2>Theory</h2><p>Hardenability, the Jominy test principle, and material science background</p></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💡 What is Hardenability?</div>
+    <p><strong>Hardenability</strong> is the ability of a steel to be hardened to a given depth by quenching. It is a measure of how deep the hardness penetrates into the cross-section of a steel piece when subjected to a given quench. Hardenability should <em>not</em> be confused with hardness — hardness is the resistance to surface penetration, while hardenability describes the <em>depth</em> to which hardening occurs.</p>
+    <div class="fire-box"><strong>Key Distinction:</strong> High hardenability steel develops martensite throughout its cross-section; low hardenability steel only hardens at the surface, with a soft core beneath.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">🧪 Jominy End-Quench Test Principle</div>
+    <p>The Jominy test (ASTM A255 / ISO 642) provides a standardized way to compare hardenability. A standard cylindrical specimen (25.4 mm dia × 102 mm long) is heated to the austenitizing temperature, then rapidly transferred to a fixture where only the <strong>bottom end</strong> is quenched by a controlled jet of water. The rest of the bar cools in still air.</p>
+    <p style="margin-top:0.75rem">This creates a <strong>gradient of cooling rates</strong> along the bar length — very fast at the quenched end (high hardness if martensite forms), and very slow at the opposite end (lower hardness, ferrite/pearlite structure). After quenching, flat surfaces are ground along the bar and Rockwell hardness (HRC) is measured at 1.6 mm (1/16-inch) intervals from the quenched end.</p>
+    <div class="fire-box"><strong>Water jet specification:</strong> Free-water height from orifice = 63.5 mm, orifice diameter = 12.5 mm. Flow must produce an umbrella pattern when the specimen is in place.</div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">🔬 Microstructural Transformations</div>
+      <ul>
+        <li><strong>Martensite</strong> — forms at high cooling rates (quenched end). Very hard, brittle, body-centred tetragonal structure.</li>
+        <li><strong>Bainite</strong> — intermediate cooling rate. Mixture of ferrite and fine cementite. Moderate hardness.</li>
+        <li><strong>Pearlite</strong> — slow cooling (far end). Lamellar ferrite + cementite. Lower hardness.</li>
+        <li><strong>Ferrite</strong> — very slow cooling. Soft, ductile BCC iron phase.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">⚗️ Factors Affecting Hardenability</div>
+      <ul>
+        <li><strong>Carbon content</strong> — higher carbon increases maximum attainable hardness</li>
+        <li><strong>Alloying elements</strong> — Mn, Cr, Mo, Ni retard pearlite/bainite transformation, increasing hardenability</li>
+        <li><strong>Grain size</strong> — coarser austenite grain increases hardenability</li>
+        <li><strong>Austenitizing temperature</strong> — higher temp dissolves more carbides, increasing hardenability</li>
+        <li><strong>Cooling rate</strong> — controlled by distance from quenched end</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📐 Specimen Dimensions</div>
+    <div class="grid-3">
+      <div class="sub-task"><strong>Diameter</strong>25.4 mm (1 inch) — standardized to ensure uniform cooling rate distribution.</div>
+      <div class="sub-task"><strong>Length</strong>102 mm (4 inches) — sufficient to cover the full range of cooling rates in one test.</div>
+      <div class="sub-task"><strong>Collar / Shoulder</strong>A small shoulder near one end allows the specimen to hang in the Jominy fixture without touching water during transfer.</div>
+    </div>
+  </div>
+  <div class="grid-3">
+    <div class="card" style="text-align:center">
+      <div style="font-size:2.2rem;margin-bottom:0.5rem">🔴</div>
+      <div class="card-title" style="justify-content:center">Quenched End</div>
+      <p style="font-size:13.5px">Maximum cooling rate ~700°C/s. Nearly 100% martensite. Highest hardness. Represents shallow hardenability zone.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2.2rem;margin-bottom:0.5rem">🟡</div>
+      <div class="card-title" style="justify-content:center">Mid Section</div>
+      <p style="font-size:13.5px">Mixed martensite + bainite. Intermediate hardness. Cooling rate ~10–50°C/s depending on steel alloy.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <div style="font-size:2.2rem;margin-bottom:0.5rem">🔵</div>
+      <div class="card-title" style="justify-content:center">Air-cooled End</div>
+      <p style="font-size:13.5px">Slowest cooling (~2°C/s). Pearlite/ferrite structure. Lowest hardness. Hardness ≈ normalized condition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCEDURE -->
+<section id="procedure" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">📋</div>
+    <div><h2>Procedure</h2><p>Standard Operating Procedure (SOP) for Jominy End-Quench Test</p></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔧 Pre-operational Checks</div>
+    <ol class="step-list">
+      <li class="step-item">
+        <span class="step-num">1</span>
+        <div class="step-content">
+          <strong>Prepare Standard Specimen</strong>
+          <p>Prepare a cylindrical specimen of size diameter 25.4 mm and length 102 mm with a shoulder at one end (as per ASTM A255 standard). Ensure the specimen is cleaned and free of scale or oxide layers.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">2</span>
+        <div class="step-content">
+          <strong>Heat Specimen in Furnace</strong>
+          <p>Heat the specimen in a furnace up to austenitic temperature (typically 870°C for most carbon steels) for the prescribed soaking time — generally 30 minutes to ensure complete and uniform austenitization throughout the cross-section.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">3</span>
+        <div class="step-content">
+          <strong>Check Water Level in Jominy Apparatus</strong>
+          <p>Check the water level in the tank of the Jominy apparatus. If less, fill water from the top to ensure there is a continuous uninterrupted water supply during the quench.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">4</span>
+        <div class="step-content">
+          <strong>Adjust Water Flow Rate</strong>
+          <p>Check the free water height from the orifice. Adjust the flow rate of water so that it forms an <strong>umbrella pattern</strong> when the test piece is kept in position on the Jominy bath fixture. Standard free jet height = 63.5 mm (2.5 inches).</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="card">
+    <div class="card-title">🔥 Operational Procedure</div>
+    <ol class="step-list">
+      <li class="step-item">
+        <span class="step-num">5</span>
+        <div class="step-content">
+          <strong>Remove Hot Specimen from Furnace</strong>
+          <p>Remove the hot red specimen from the furnace with the help of tongs provided. Handle carefully to avoid burns and ensure transfer time to the Jominy fixture is within 5 seconds to prevent premature transformation.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">6</span>
+        <div class="step-content">
+          <strong>Place on Jominy Bath Fixture</strong>
+          <p>Keep the specimen on the fixture provided in the Jominy bath tub. The bottom end of the specimen should be 12.5 mm above the water orifice. The specimen should be held by the shoulder, allowing the water jet to impinge only on the bottom face.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">7</span>
+        <div class="step-content">
+          <strong>Turn on Pump Switch</strong>
+          <p>Turn on the pump switch so that water comes from the water supply pipe. The water jet must hit only the bottom end face of the specimen — not the sides. Ensure the umbrella spray pattern is formed.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">8</span>
+        <div class="step-content">
+          <strong>Continue Quenching for 10 Minutes</strong>
+          <p>After this, the cooling of the specimen will be completed by the test specimen spraying water at least for <strong>10 minutes</strong>. The specimen must remain undisturbed on the fixture throughout this period.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">9</span>
+        <div class="step-content">
+          <strong>Turn Off Pump Switch</strong>
+          <p>After the 10-minute quench period is complete, turn off the pump switch. Remove the specimen carefully using tongs — it may still be hot.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="card">
+    <div class="card-title">📏 Ending Operations and Data Collection</div>
+    <ol class="step-list">
+      <li class="step-item">
+        <span class="step-num">10</span>
+        <div class="step-content">
+          <strong>Grind Flat Surfaces</strong>
+          <p>Grind two diametrically opposite flat surfaces along the length of the specimen to a depth of 0.38 mm (0.015 inch) to remove any decarburized layer and expose the true microstructure for hardness testing.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">11</span>
+        <div class="step-content">
+          <strong>Calculate Hardness at Different Points</strong>
+          <p>Measure Rockwell hardness (HRC scale) at regular intervals from the quenched end — typically at 1.5 mm, 3 mm, 5 mm, 7 mm, 9 mm, 11 mm, 13 mm … up to the full length. Mark distances with a scriber and record all readings.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <span class="step-num">12</span>
+        <div class="step-content">
+          <strong>Plot Hardenability Graph</strong>
+          <p>Plot the hardenability curve with <strong>distance from quenched end (mm)</strong> on the X-axis and <strong>Rockwell Hardness (HRC)</strong> on the Y-axis. Connect the points with a smooth curve. This is the Jominy curve for the tested steel.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- SIMULATION -->
+<section id="simulation" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">🔥</div>
+    <div><h2>Simulation</h2><p>Interactive virtual Jominy test — select steel grade, heat, quench, and view the hardenability curve</p></div>
+  </div>
+  <div class="sim-wrapper">
+    <div class="sim-top">
+      <div>
+        <div class="sim-top-title">Jominy End-Quench Test — Virtual Console</div>
+        <div class="sim-top-sub">R. C. Patel Institute of Technology · ME Dept. · Material Testing Lab</div>
+      </div>
+      <div class="sim-status">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Standby</span>
+      </div>
+    </div>
+    <div class="sim-body">
+      <!-- Controls -->
+      <div class="sim-controls">
+        <div class="control-group">
+          <span class="control-label">Steel Grade</span>
+          <button class="control-btn active" id="mat-1040" onclick="selectMat('1040',this)">AISI 1040 (0.4%C)</button>
+          <button class="control-btn" id="mat-4140" onclick="selectMat('4140',this)">AISI 4140 (Cr-Mo)</button>
+          <button class="control-btn" id="mat-8620" onclick="selectMat('8620',this)">AISI 8620 (Ni-Cr-Mo)</button>
+          <button class="control-btn" id="mat-4340" onclick="selectMat('4340',this)">AISI 4340 (High Alloy)</button>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Austenitizing Temp</span>
+          <div class="slider-row">
+            <label>Temperature <span id="tempVal">870</span>°C</label>
+            <input type="range" min="800" max="950" value="870" step="10" id="tempSlider" oninput="document.getElementById('tempVal').textContent=this.value">
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Water Flow Rate</span>
+          <div class="slider-row">
+            <label>Flow <span id="flowVal">100</span>%</label>
+            <input type="range" min="50" max="150" value="100" step="5" id="flowSlider" oninput="document.getElementById('flowVal').textContent=this.value">
+          </div>
+        </div>
+        <div class="control-group">
+          <span class="control-label">Process Control</span>
+          <button class="control-btn fire-btn" id="heatBtn" onclick="startHeat()" style="background:rgba(224,90,26,0.12);border-color:rgba(224,90,26,0.4);color:#e05a1a">🔥 Heat in Furnace</button>
+          <button class="control-btn water-btn" id="quenchBtn" onclick="startQuench()" disabled style="opacity:0.4">💧 Start Quench</button>
+          <button class="control-btn" id="measureBtn" onclick="doMeasure()" disabled style="opacity:0.4">📏 Measure Hardness</button>
+        </div>
+        <div id="timerDisplay" style="background:rgba(0,0,0,0.06);border-radius:8px;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text-muted);font-weight:500;text-align:center;display:none">
+          <span id="timerLabel">Heating...</span><br>
+          <span id="timerVal" style="font-size:1.4rem;color:var(--fire);font-weight:500">0s</span>
+        </div>
+      </div>
+      <!-- View -->
+      <div class="sim-view">
+        <div class="sim-view-bg"></div>
+        <div class="furnace-area">
+          <div class="furnace-box">
+            <div class="furnace-title">Furnace</div>
+            <div class="furnace-visual" id="furnaceVis">
+              <div class="furnace-flame" id="furnaceFlame">🔲</div>
+            </div>
+            <div class="furnace-temp" id="furnaceTemp">--- <span>°C</span></div>
+          </div>
+          <div class="specimen-journey">
+            <div class="journey-step" id="jstep-1">
+              <span class="step-icon">🧱</span>
+              <div class="step-desc"><strong>Specimen Ready</strong><span>⌀25.4 × 102 mm cylindrical bar</span></div>
+              <span class="step-check done">✔</span>
+            </div>
+            <div class="journey-step" id="jstep-2">
+              <span class="step-icon">🔥</span>
+              <div class="step-desc"><strong>Austenitizing</strong><span>Heating to target temperature</span></div>
+              <span class="step-check" id="chk-2">○</span>
+            </div>
+            <div class="journey-step" id="jstep-3">
+              <span class="step-icon">⚡</span>
+              <div class="step-desc"><strong>Transfer to Fixture</strong><span>Within 5 seconds</span></div>
+              <span class="step-check" id="chk-3">○</span>
+            </div>
+            <div class="journey-step" id="jstep-4">
+              <span class="step-icon">💧</span>
+              <div class="step-desc"><strong>End Quenching</strong><span>Water jet · 10 minutes</span></div>
+              <span class="step-check" id="chk-4">○</span>
+            </div>
+            <div class="journey-step" id="jstep-5">
+              <span class="step-icon">📏</span>
+              <div class="step-desc"><strong>Hardness Measurement</strong><span>HRC at intervals from quench end</span></div>
+              <span class="step-check" id="chk-5">○</span>
+            </div>
+          </div>
+        </div>
+        <!-- Jominy Chart -->
+        <div class="chart-area">
+          <div class="chart-title">Jominy Hardenability Curve</div>
+          <canvas id="jominyCanvas" width="500" height="180"></canvas>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e05a1a"></div>Selected Steel</div>
+            <div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.25)"></div>Reference (AISI 1040)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sim-steps-bar">
+      <span class="sim-step-tag">Tip</span>
+      <span id="simTip">Select a steel grade, set austenitizing temperature, then click Heat → Quench → Measure</span>
+      <div class="sim-btn">
+        <button class="btn btn-outline" onclick="resetSim()">↺ Reset</button>
+        <button class="btn btn-fire" onclick="switchTab('procedure', document.querySelector('.nav-tab:nth-child(3)'))">View SOP →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem">
+    <div class="card-title">📊 Steel Grades Comparison</div>
+    <div class="grid-2">
+      <div class="sub-task"><strong>AISI 1040 — Plain Carbon Steel</strong>Low hardenability. Hardness drops rapidly from quenched end. Suitable for small section components. Jominy J distance (J₁₀) ≈ 5–8 mm.</div>
+      <div class="sub-task"><strong>AISI 4140 — Chromium-Molybdenum Steel</strong>Medium-high hardenability. Cr and Mo retard transformation. Good for medium section parts (shafts, gears). J₁₀ ≈ 15–25 mm.</div>
+      <div class="sub-task"><strong>AISI 8620 — Nickel-Chromium-Molybdenum</strong>Case-hardening steel. Moderate core hardenability with excellent surface properties. J₁₀ ≈ 10–18 mm.</div>
+      <div class="sub-task"><strong>AISI 4340 — High Alloy Steel</strong>Very high hardenability. Remains hard across the full bar length. Used for large forgings, aircraft parts. J₁₀ ≈ 35–50 mm.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SELF EVALUATION -->
+<section id="selfeval" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">✅</div>
+    <div><h2>Self Evaluation</h2><p>Test your understanding before attempting the graded quiz</p></div>
+  </div>
+  <div id="evalContainer"></div>
+  <div class="eval-score-box" id="evalScoreBox">
+    <div class="score-num" id="evalScoreNum">0/5</div>
+    <div class="score-label">Self Evaluation Score</div>
+    <div class="score-msg" id="evalScoreMsg">—</div>
+    <button class="btn btn-fire" onclick="resetEval()" style="margin-top:1rem">Retry Evaluation</button>
+  </div>
+  <div style="text-align:right;margin-top:1rem">
+    <button class="btn btn-primary" id="evalSubmitBtn" onclick="submitEval()">Submit Answers</button>
+  </div>
+</section>
+
+<!-- ASSIGNMENT -->
+<section id="assignment" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">📝</div>
+    <div><h2>Assignment</h2><p>Practical and written tasks to reinforce learning from Jominy test</p></div>
+  </div>
+  <div class="assignment-card">
+    <div class="assignment-header">
+      <div class="assignment-title">Assignment 1 — Jominy Test Execution &amp; Curve Plotting</div>
+      <span class="badge badge-fire">Practical</span>
+    </div>
+    <div class="assignment-body">
+      <p>Perform the Jominy end-quench test on the given steel specimen and record the hardness data.</p>
+      <div class="sub-task"><strong>Task A — Observation Table</strong>Record Rockwell hardness (HRC) readings at distances of 1.5, 3, 5, 7, 9, 11, 13, 16, 19, 22, 25, 30, 35, 40, 45, 50 mm from the quenched end. Present data in a tabular format.</div>
+      <div class="sub-task"><strong>Task B — Hardenability Curve</strong>Plot the Jominy curve (HRC vs Distance from quenched end in mm) on graph paper. Label the axes, mark the data points, and draw a smooth best-fit curve. Identify the J-distance (the distance at which HRC drops to a specified value, e.g. HRC 40).</div>
+      <div class="sub-task"><strong>Task C — Hardness Band</strong>Superimpose the measured curve on the standard hardenability band for the steel grade used. Comment on whether the specimen falls within the acceptable band, and what this implies about the batch quality.</div>
+    </div>
+  </div>
+  <div class="assignment-card">
+    <div class="assignment-header">
+      <div class="assignment-title">Assignment 2 — Comparative Hardenability Study</div>
+      <span class="badge badge-water">Written Report</span>
+    </div>
+    <div class="assignment-body">
+      <p>Prepare a written report (minimum 5 pages) on the comparative hardenability of different steels:</p>
+      <div class="sub-task"><strong>Part 1 — Alloying Element Analysis</strong>Explain how each of the following alloying elements affects the hardenability of steel, and why: Carbon (C), Manganese (Mn), Chromium (Cr), Molybdenum (Mo), Nickel (Ni), Boron (B). Use the Grossmann hardenability concept to support your answer.</div>
+      <div class="sub-task"><strong>Part 2 — Jominy Curves Comparison</strong>Sketch (or plot from data) the Jominy curves for AISI 1020, 1040, 4140, and 4340 steels on the same axes. Discuss the shape differences and what they imply about the depth of hardening in a 50 mm diameter bar of each grade.</div>
+      <div class="sub-task"><strong>Part 3 — Industrial Application</strong>Select one industrial application (gear, shaft, die, or structural member) and justify the steel grade selection based on hardenability requirements, section size, and service conditions. Include cooling rate calculations if applicable.</div>
+    </div>
+  </div>
+  <div class="assignment-card">
+    <div class="assignment-header">
+      <div class="assignment-title">Assignment 3 — Viva Preparation &amp; Calculations</div>
+      <span class="badge badge-fire">Viva + Numerical</span>
+    </div>
+    <div class="assignment-body">
+      <p>Solve the following numerical problems and prepare for viva questions:</p>
+      <div class="sub-task"><strong>Problem 1</strong>A steel bar of diameter 40 mm is quenched in water. Using the Jominy curve for AISI 4140, determine the hardness at the surface and at the centre of the bar. Use the Lamont chart for cooling rate correlation.</div>
+      <div class="sub-task"><strong>Problem 2</strong>Explain why two steels with the same carbon content can have different hardenabilities. Calculate the Ideal Critical Diameter (DI) for a 0.4%C steel with 0.8%Mn, 0.5%Cr, 0.2%Mo using the multiplying factor method.</div>
+      <div class="sub-task"><strong>Problem 3</strong>A Jominy specimen showed HRC values of 58, 55, 50, 44, 36, 30, 28, 27 at distances 1.5, 3, 5, 7, 10, 13, 16, 20 mm. Calculate the hardness drop rate (HRC/mm) and classify the steel as low, medium, or high hardenability.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="section">
+  <div class="section-header">
+    <div class="section-icon-box">🏆</div>
+    <div><h2>Quiz</h2><p>Graded assessment — 10 questions on the Jominy End-Quench Test</p></div>
+  </div>
+  <div class="quiz-header-card">
+    <div class="quiz-icon-big">🏆</div>
+    <div>
+      <div style="font-family:'Libre Baskerville',serif;font-size:1.3rem;font-weight:700">Jominy Test Hardenability Quiz</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;font-weight:500">Select the best answer for each question</div>
+      <div class="quiz-meta">
+        <div class="quiz-meta-item"><strong>10</strong>Questions</div>
+        <div class="quiz-meta-item"><strong>10</strong>Marks</div>
+        <div class="quiz-meta-item"><strong>Objective</strong>Type</div>
+      </div>
+    </div>
+  </div>
+  <div id="quizContainer"></div>
+  <div class="quiz-result-card" id="quizResultCard">
+    <div class="quiz-score-big" id="quizScoreNum">0</div>
+    <div class="quiz-score-denom">/ 10</div>
+    <div class="quiz-result-label" id="quizResultLabel">Result</div>
+    <div class="quiz-result-sub" id="quizResultSub">—</div>
+    <div class="quiz-grade-bar" id="quizGradeBar"></div>
+    <button class="btn btn-fire" onclick="resetQuiz()" style="margin-top:1.5rem">↺ Retake Quiz</button>
+  </div>
+  <div class="quiz-submit-bar">
+    <button class="btn btn-outline" onclick="resetQuiz()">↺ Clear</button>
+    <button class="btn btn-primary" id="quizSubmitBtn" onclick="submitQuiz()">Submit Quiz</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>R. C. Patel Institute of Technology</strong> · Department of Mechanical Engineering<br>
+  Material Testing Lab · Virtual Laboratory Platform · Jominy End-Quench Test
+</footer>
+
+<script>
+/* ── TABS ── */
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── SIMULATION ── */
+const steels = {
+  '1040': { name: 'AISI 1040', hardness: [58,52,44,35,28,25,24,23,22,21,20,20,20,20,20,20], color: '#e05a1a' },
+  '4140': { name: 'AISI 4140', hardness: [60,58,56,54,50,46,42,38,35,33,31,30,29,28,27,26], color: '#3ab8ff' },
+  '8620': { name: 'AISI 8620', hardness: [42,40,38,36,34,32,30,28,27,26,25,24,24,23,23,22], color: '#4cde8a' },
+  '4340': { name: 'AISI 4340', hardness: [60,59,58,57,56,55,54,52,50,48,46,44,42,40,39,38], color: '#f0c030' },
+};
+const ref1040 = [58,52,44,35,28,25,24,23,22,21,20,20,20,20,20,20];
+let currentMat = '1040';
+let simState = 'idle'; // idle, heating, quenching, measured
+let simTimer = null;
+let simSeconds = 0;
+let canvasDrawn = false;
+
+function selectMat(mat, btn) {
+  currentMat = mat;
+  document.querySelectorAll('[id^=mat-]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (canvasDrawn) drawChart();
+}
+
+function setStatus(state, label) {
+  const dot = document.getElementById('statusDot');
+  dot.className = 'status-dot';
+  if (state === 'heating') { dot.classList.add('hot'); }
+  else if (state === 'quenching') { dot.classList.add('quench'); }
+  else if (state === 'running') { dot.classList.add('on'); }
+  document.getElementById('statusText').textContent = label;
+}
+
+function markStep(n, active) {
+  const el = document.getElementById(`jstep-${n}`);
+  if (active) { el.classList.add('active-step'); el.classList.remove('done-step'); }
+  else { el.classList.remove('active-step'); el.classList.add('done-step'); document.getElementById(`chk-${n}`).textContent = '✔'; document.getElementById(`chk-${n}`).classList.add('done'); }
+}
+
+function startHeat() {
+  if (simState !== 'idle' && simState !== 'measured') return;
+  simState = 'heating';
+  setStatus('heating', 'Heating');
+  document.getElementById('timerDisplay').style.display = 'block';
+  document.getElementById('timerLabel').textContent = 'Austenitizing...';
+  document.getElementById('heatBtn').disabled = true;
+  document.getElementById('heatBtn').style.opacity = 0.5;
+  markStep(2, true);
+  document.getElementById('furnaceFlame').textContent = '🔥';
+  document.getElementById('furnaceVis').style.background = '#3a1500';
+  document.getElementById('simTip').textContent = 'Heating specimen to austenitizing temperature...';
+  let t = 0;
+  const targetTemp = +document.getElementById('tempSlider').value;
+  simTimer = setInterval(() => {
+    t++;
+    simSeconds = t;
+    const displayTemp = Math.round(20 + (targetTemp - 20) * Math.min(t / 8, 1));
+    document.getElementById('timerVal').textContent = t + 's';
+    document.getElementById('furnaceTemp').innerHTML = displayTemp + ' <span>°C</span>';
+    if (t >= 8) {
+      clearInterval(simTimer);
+      simState = 'heated';
+      document.getElementById('furnaceTemp').innerHTML = targetTemp + ' <span>°C</span>';
+      markStep(2, false);
+      markStep(3, false);
+      document.getElementById('quenchBtn').disabled = false;
+      document.getElementById('quenchBtn').style.opacity = 1;
+      document.getElementById('timerLabel').textContent = 'Austenitizing complete ✔';
+      setStatus('running', 'Ready to Quench');
+      document.getElementById('simTip').textContent = 'Specimen austenitized! Now click Start Quench to begin end-quenching.';
+    }
+  }, 300);
+}
+
+function startQuench() {
+  if (simState !== 'heated') return;
+  simState = 'quenching';
+  setStatus('quenching', 'Quenching');
+  document.getElementById('quenchBtn').disabled = true;
+  document.getElementById('quenchBtn').style.opacity = 0.5;
+  markStep(4, true);
+  document.getElementById('furnaceFlame').textContent = '💧';
+  document.getElementById('furnaceVis').style.background = '#001a2a';
+  document.getElementById('furnaceTemp').innerHTML = '--- <span>°C</span>';
+  document.getElementById('timerLabel').textContent = 'Quenching (10 min sim)...';
+  document.getElementById('simTip').textContent = 'Water jet cooling the end of specimen. Cooling rate gradient forming along the bar...';
+  let t = 0;
+  simTimer = setInterval(() => {
+    t++;
+    document.getElementById('timerVal').textContent = t + 's';
+    if (t >= 10) {
+      clearInterval(simTimer);
+      simState = 'quenched';
+      markStep(4, false);
+      document.getElementById('measureBtn').disabled = false;
+      document.getElementById('measureBtn').style.opacity = 1;
+      document.getElementById('timerLabel').textContent = 'Quenching complete ✔';
+      setStatus('running', 'Ready to Measure');
+      document.getElementById('simTip').textContent = 'Quenching complete! Grind flat surfaces and click Measure Hardness.';
+    }
+  }, 300);
+}
+
+function doMeasure() {
+  if (simState !== 'quenched') return;
+  simState = 'measured';
+  markStep(5, false);
+  setStatus('running', 'Data Ready');
+  document.getElementById('timerLabel').textContent = 'Hardness measured ✔';
+  document.getElementById('timerVal').textContent = '✔';
+  document.getElementById('simTip').textContent = 'Hardenability curve plotted. Observe how hardness drops with distance from quenched end.';
+  document.getElementById('heatBtn').disabled = false;
+  document.getElementById('heatBtn').style.opacity = 1;
+  canvasDrawn = true;
+  drawChart();
+}
+
+function drawChart() {
+  const canvas = document.getElementById('jominyCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = { l: 45, r: 20, t: 15, b: 35 };
+  const chartW = W - pad.l - pad.r;
+  const chartH = H - pad.t - pad.b;
+  ctx.clearRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 5; i++) {
+    const y = pad.t + (chartH / 5) * i;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y); ctx.stroke();
+  }
+  for (let i = 0; i <= 16; i++) {
+    const x = pad.l + (chartW / 16) * i;
+    ctx.beginPath(); ctx.moveTo(x, pad.t); ctx.lineTo(x, pad.t + chartH); ctx.stroke();
+  }
+
+  // Axes labels
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = '10px IBM Plex Mono, monospace';
+  ctx.textAlign = 'right';
+  const hrcMax = 65, hrcMin = 15;
+  for (let i = 0; i <= 5; i++) {
+    const val = hrcMax - (hrcMax - hrcMin) / 5 * i;
+    ctx.fillText(Math.round(val), pad.l - 5, pad.t + (chartH / 5) * i + 4);
+  }
+  ctx.textAlign = 'center';
+  const dists = [0, 5, 10, 15, 20, 25, 30, 40, 50];
+  dists.forEach(d => {
+    const idx = d === 0 ? 0 : Math.min(d / 3.2, 15);
+    const x = pad.l + (idx / 15) * chartW;
+    ctx.fillText(d, x, pad.t + chartH + 14);
+  });
+
+  // Axis labels
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.font = '9px IBM Plex Mono, monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Distance from Quenched End (mm)', pad.l + chartW / 2, H - 2);
+  ctx.save();
+  ctx.translate(12, pad.t + chartH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Hardness (HRC)', 0, 0);
+  ctx.restore();
+
+  function plotLine(data, color, dash = []) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.setLineDash(dash);
+    data.forEach((h, i) => {
+      const x = pad.l + (i / (data.length - 1)) * chartW;
+      const y = pad.t + chartH - ((h - hrcMin) / (hrcMax - hrcMin)) * chartH;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  if (currentMat !== '1040') plotLine(ref1040, 'rgba(255,255,255,0.2)', [4, 3]);
+  const steel = steels[currentMat];
+  plotLine(steel.hardness, steel.color);
+
+  // Dots
+  steel.hardness.forEach((h, i) => {
+    const x = pad.l + (i / (steel.hardness.length - 1)) * chartW;
+    const y = pad.t + chartH - ((h - hrcMin) / (hrcMax - hrcMin)) * chartH;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = steel.color;
+    ctx.fill();
+  });
+}
+
+// Draw empty chart on load
+(function() {
+  const canvas = document.getElementById('jominyCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.font = '13px Rajdhani, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Complete the simulation to plot the Jominy curve', 250, 95);
+})();
+
+function resetSim() {
+  clearInterval(simTimer);
+  simState = 'idle'; canvasDrawn = false;
+  setStatus('idle', 'Standby');
+  document.getElementById('statusDot').className = 'status-dot';
+  document.getElementById('heatBtn').disabled = false; document.getElementById('heatBtn').style.opacity = 1;
+  document.getElementById('quenchBtn').disabled = true; document.getElementById('quenchBtn').style.opacity = 0.4;
+  document.getElementById('measureBtn').disabled = true; document.getElementById('measureBtn').style.opacity = 0.4;
+  document.getElementById('timerDisplay').style.display = 'none';
+  document.getElementById('furnaceFlame').textContent = '🔲';
+  document.getElementById('furnaceVis').style.background = '#1a0800';
+  document.getElementById('furnaceTemp').innerHTML = '--- <span>°C</span>';
+  ['2','3','4','5'].forEach(n => {
+    const s = document.getElementById(`jstep-${n}`);
+    s.classList.remove('active-step','done-step');
+    const c = document.getElementById(`chk-${n}`);
+    if (c) { c.textContent = '○'; c.classList.remove('done'); }
+  });
+  document.getElementById('simTip').textContent = 'Select a steel grade, set austenitizing temperature, then click Heat → Quench → Measure';
+  const canvas = document.getElementById('jominyCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.font = '13px Rajdhani, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Complete the simulation to plot the Jominy curve', 250, 95);
+}
+
+/* ── SELF EVALUATION ── */
+const evalQs = [
+  { q: 'What is hardenability?', opts: ['Maximum hardness achievable on the surface', 'The ability of steel to be hardened to a given depth by quenching', 'Resistance to wear and abrasion', 'Hardness of martensite phase'], ans: 1 },
+  { q: 'What are the dimensions of the standard Jominy specimen?', opts: ['⌀20 mm × 80 mm', '⌀25.4 mm × 102 mm', '⌀30 mm × 120 mm', '⌀12.5 mm × 50 mm'], ans: 1 },
+  { q: 'In the Jominy test, which end of the specimen is quenched?', opts: ['The top end', 'The middle section', 'The bottom end only', 'The entire specimen simultaneously'], ans: 2 },
+  { q: 'What microstructure forms at the quenched end of a Jominy specimen?', opts: ['Ferrite and pearlite', 'Martensite (very hard)', 'Bainite only', 'Austenite'], ans: 1 },
+  { q: 'Which alloying element greatly increases hardenability even in small amounts (ppm level)?', opts: ['Silicon (Si)', 'Copper (Cu)', 'Boron (B)', 'Aluminium (Al)'], ans: 2 },
+];
+let evalAnswers = {};
+function buildEval() {
+  const c = document.getElementById('evalContainer');
+  c.innerHTML = '';
+  evalAnswers = {};
+  document.getElementById('evalScoreBox').classList.remove('show');
+  evalQs.forEach((q, qi) => {
+    const d = document.createElement('div');
+    d.className = 'eval-item';
+    d.innerHTML = `<div class="eval-q">Q${qi+1}. ${q.q}</div>
+      <div class="eval-options" id="eo-${qi}">${q.opts.map((o,oi)=>`<div class="eval-option" onclick="selEval(${qi},${oi},this)"><div class="eval-radio"></div>${o}</div>`).join('')}</div>
+      <div class="eval-feedback" id="ef-${qi}"></div>`;
+    c.appendChild(d);
+  });
+}
+function selEval(qi,oi,el) {
+  document.querySelectorAll(`#eo-${qi} .eval-option`).forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  evalAnswers[qi] = oi;
+}
+function submitEval() {
+  let correct = 0;
+  evalQs.forEach((q,qi) => {
+    const opts = document.querySelectorAll(`#eo-${qi} .eval-option`);
+    const fb = document.getElementById(`ef-${qi}`);
+    opts.forEach(o=>o.classList.add('disabled'));
+    if (evalAnswers[qi] === undefined) { fb.textContent = '⚠ Not answered'; fb.className = 'eval-feedback show fail'; return; }
+    opts.forEach((o,oi) => {
+      if (oi === q.ans) o.classList.add('correct');
+      else if (oi === evalAnswers[qi] && oi !== q.ans) o.classList.add('wrong');
+    });
+    if (evalAnswers[qi] === q.ans) { correct++; fb.textContent = '✔ Correct!'; fb.className = 'eval-feedback show ok'; }
+    else { fb.textContent = `✘ Incorrect. Answer: "${q.opts[q.ans]}"` ; fb.className = 'eval-feedback show fail'; }
+  });
+  document.getElementById('evalSubmitBtn').disabled = true;
+  const pct = Math.round(correct/evalQs.length*100);
+  document.getElementById('evalScoreNum').textContent = `${correct}/${evalQs.length}`;
+  document.getElementById('evalScoreMsg').textContent = pct>=80 ? '🎉 Excellent! Ready for the graded quiz.' : pct>=60 ? '👍 Good. Review weak areas.' : '📖 Review the theory section carefully.';
+  document.getElementById('evalScoreBox').classList.add('show');
+}
+function resetEval() { document.getElementById('evalSubmitBtn').disabled = false; buildEval(); }
+buildEval();
+
+/* ── QUIZ ── */
+const quizQs = [
+  { q: 'The Jominy test is standardized under which specification?', opts: ['ASTM A370', 'ASTM A255 / ISO 642', 'IS 1608', 'BS 4543'], ans: 1 },
+  { q: 'What is the standard free-water height of the water jet from the orifice in the Jominy bath?', opts: ['25.4 mm', '50 mm', '63.5 mm', '102 mm'], ans: 2 },
+  { q: 'At the air-cooled end of the Jominy specimen (far from quench), the predominant microstructure is:', opts: ['100% Martensite', 'Bainite + Martensite', 'Ferrite + Pearlite', 'Tempered martensite'], ans: 2 },
+  { q: 'The Jominy test measures hardness using which scale?', opts: ['Vickers (HV)', 'Brinell (HB)', 'Rockwell C (HRC)', 'Shore (HS)'], ans: 2 },
+  { q: 'Why must the specimen be transferred from furnace to Jominy fixture within 5 seconds?', opts: ['To prevent oxidation only', 'To prevent premature austenite-to-pearlite transformation before quenching', 'Because the fixture cools quickly', 'To maintain water temperature'], ans: 1 },
+  { q: 'How does increasing the austenitizing temperature generally affect hardenability?', opts: ['Decreases hardenability', 'Has no effect', 'Increases hardenability by dissolving more carbides into austenite', 'Only affects surface hardness'], ans: 2 },
+  { q: 'Which steel grade has the HIGHEST hardenability?', opts: ['AISI 1020', 'AISI 1040', 'AISI 4140', 'AISI 4340'], ans: 3 },
+  { q: 'The depth of flat grinding on the Jominy specimen before hardness testing is:', opts: ['0.1 mm', '0.38 mm (0.015 inch)', '1.0 mm', '2.0 mm'], ans: 1 },
+  { q: 'The water quench in the Jominy test should continue for at least:', opts: ['2 minutes', '5 minutes', '10 minutes', '30 minutes'], ans: 2 },
+  { q: 'What does the J-distance on a hardenability curve represent?', opts: ['The total length of the bar', 'The distance from the quench end at which hardness drops to a specified value (e.g., HRC 40)', 'The spacing between hardness indentations', 'The diameter of the water jet orifice'], ans: 1 },
+];
+let quizAnswers = {};
+function buildQuiz() {
+  const c = document.getElementById('quizContainer');
+  c.innerHTML = ''; quizAnswers = {};
+  document.getElementById('quizResultCard').classList.remove('show');
+  document.getElementById('quizSubmitBtn').disabled = false;
+  const L = ['A','B','C','D'];
+  quizQs.forEach((q,qi) => {
+    const d = document.createElement('div');
+    d.className = 'quiz-q-card';
+    d.innerHTML = `<div class="quiz-q-num-bar">Question ${qi+1} of ${quizQs.length}</div>
+      <div class="quiz-q-body">
+        <div class="quiz-q-text">${q.q}</div>
+        <div class="quiz-options" id="qo-${qi}">${q.opts.map((o,oi)=>`<div class="quiz-option" onclick="selQuiz(${qi},${oi},this)"><span class="option-letter">${L[oi]}</span>${o}</div>`).join('')}</div>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+function selQuiz(qi,oi,el) {
+  document.querySelectorAll(`#qo-${qi} .quiz-option`).forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected'); quizAnswers[qi]=oi;
+}
+function submitQuiz() {
+  let correct=0,wrong=0,skipped=0;
+  quizQs.forEach((q,qi)=>{
+    const opts=document.querySelectorAll(`#qo-${qi} .quiz-option`);
+    opts.forEach(o=>o.classList.add('disabled'));
+    if(quizAnswers[qi]===undefined){skipped++;return;}
+    opts.forEach((o,oi)=>{if(oi===q.ans)o.classList.add('correct');else if(oi===quizAnswers[qi]&&oi!==q.ans)o.classList.add('wrong');});
+    if(quizAnswers[qi]===q.ans)correct++;else wrong++;
+  });
+  document.getElementById('quizSubmitBtn').disabled=true;
+  const pct=Math.round(correct/quizQs.length*100);
+  document.getElementById('quizScoreNum').textContent=correct;
+  let grade='Fail',msg='Please revisit theory and retry.';
+  if(pct>=90){grade='Distinction';msg='Outstanding performance!';}
+  else if(pct>=70){grade='First Class';msg='Excellent work!';}
+  else if(pct>=50){grade='Pass';msg='Good effort — review incorrect answers.';}
+  document.getElementById('quizResultLabel').textContent=grade;
+  document.getElementById('quizResultSub').textContent=msg;
+  document.getElementById('quizGradeBar').innerHTML=`<div class="quiz-grade-item"><strong>${correct}</strong>Correct</div><div class="quiz-grade-item"><strong>${wrong}</strong>Incorrect</div><div class="quiz-grade-item"><strong>${skipped}</strong>Skipped</div><div class="quiz-grade-item"><strong>${pct}%</strong>Score</div>`;
+  document.getElementById('quizResultCard').classList.add('show');
+  document.getElementById('quizResultCard').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetQuiz(){buildQuiz();}
+buildQuiz();
+</script>
+</body>
+</html>
